@@ -113,6 +113,8 @@ function makeWishRequest(sender, search_query) {
                         products[i] = {};
                         products[i]['img_url'] = data['img_url']
                         products[i]['id'] = data['id']
+                        console.log("products that are blank")
+                       	console.log(JSON.stringify(products, null, 2));
                     }
                     console.log(data.length + " items to be shown");
                     console.log("sending_message");
