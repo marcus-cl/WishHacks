@@ -85,23 +85,6 @@ app.listen(app.get('port'), function() {
 })
 
 
-function openWishCards(search_query) {
-            console.log("Search Query " + search_query);
-        let url = 'https://wish.com/api/search?query=' + search_query
-        request(url, function (error, response, body) {
-            console.log('In request function')
-            if (!error && response.statusCode == 200) {
-                let body_json = JSON.parse(body)
-                let data = body_json['data']['results'][0]
-                let product = {}
-                product['img_url'] = data['img_url']
-                product['id'] = data['id']
-                sendProductCards(sender, product)
-            }
-        })
-}
-
-
 app.post('/webhook/', function (req, res) {
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
@@ -116,6 +99,7 @@ app.post('/webhook/', function (req, res) {
         // WIT AI TESTING ZONE
 
         var search_query = ""
+
         client.message(text, {})
         .then((data) => {
           console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
