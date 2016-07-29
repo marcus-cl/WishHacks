@@ -18,8 +18,12 @@ const WIT_TOKEN = "AQ6ICT7N5ERNKVZEUAHD6VUKNTKUBG6N"
 
 const actions = {
   send(request, response) {
-    console.log('sending...', JSON.stringify(response));
-    return Promise.resolve();
+    const {sessionId, context, entities} = request;
+    const {text, quickreplies} = response;
+    return new Promise(function(resolve, reject) {
+      console.log('sending...', JSON.stringify(response));
+      return resolve();
+    });
   },
   search({context, entities}) {
     return new Promise(function(resolve, reject) {
@@ -74,12 +78,12 @@ app.post('/webhook/', function (req, res) {
         }
         // WIT AI TESTING ZONE
 
-        client.message(text, {})
-        .then((data) => {
-          console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
-          search_query = text;
-        })
-        .catch(console.error);
+        // client.message(text, {})
+        // .then((data) => {
+        //   console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
+        //   search_query = text;
+        // })
+        // .catch(console.error);
 
 
 
