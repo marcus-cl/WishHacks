@@ -18,12 +18,13 @@ const WIT_TOKEN = "AQ6ICT7N5ERNKVZEUAHD6VUKNTKUBG6N"
 
 const actions = {
   send(request, response) {
-    const {sessionId, context, entities} = request;
-    const {text, quickreplies} = response;
-    return new Promise(function(resolve, reject) {
-      console.log('sending...', JSON.stringify(response));
-      return resolve();
-    });
+    // const {sessionId, context, entities} = request;
+    // const {text, quickreplies} = response;
+    // return new Promise(function(resolve, reject) {
+    //   console.log('sending...', JSON.stringify(response));
+    //   return resolve();
+    // });
+    return Promise.resolve();
   },
   search({context, entities}) {
     // console.log(entities);
