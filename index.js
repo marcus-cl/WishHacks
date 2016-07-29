@@ -115,6 +115,7 @@ app.post('/webhook/', function (req, res) {
             request(url, function (error, response, body) {
             console.log('In request function')
             if (!error && response.statusCode == 200) {
+                console.log(body);
                 let body_json = JSON.parse(body)
                 console.log("Parsed Json");
                 var pretty_json = JSON.stringify(body_json, null, 2);
