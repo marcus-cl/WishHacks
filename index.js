@@ -92,7 +92,7 @@ function makeWishRequest(sender, search_query) {
     console.log("makeWishRequest")
     let url = 'https://wish.com/api/search?query=' + search_query
     url += "&count=3"
-    url += "&size=original"
+    url += "&picture_size=original"
 
         try{
             request(url, function (error, response, body) {
