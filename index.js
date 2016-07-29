@@ -26,6 +26,7 @@ const actions = {
     });
   },
   search({context, entities}) {
+    // console.log(entities);
     return new Promise(function(resolve, reject) {
       console.log('entities');
       console.log(entities);
