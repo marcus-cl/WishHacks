@@ -98,7 +98,6 @@ app.post('/webhook/', function (req, res) {
         }
         // WIT AI TESTING ZONE
 
-        var search_query = ""
 
         client.message(text, {})
         .then((data) => {
