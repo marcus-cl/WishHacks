@@ -46,7 +46,7 @@ app.post('/webhook/', function (req, res) {
         request(url, function (error, response, body) {
             console.log('In request function')
             if (!error && response.statusCode == 200) {
-                sendTextMessage(sender, "Text received, echo: Status Code = " + response.statusCode)
+//                sendTextMessage(sender, "Text received, echo: Status Code = " + response.statusCode)
                 data = body['data']['results'][0]
                 product = {}
                 product['img_url'] = data['img_url']
