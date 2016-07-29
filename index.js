@@ -207,8 +207,8 @@ function sendProductCards(sender, products) {
                 "title": "Product Link"
             }, {
                 "type": "postback",
-                "title": "Postback",
-                "payload": "Payload for first element in a generic bubble",
+                "title": "Details",
+                "payload": "TODO: show details for  " + product['id'],
             }]
         }
     }
