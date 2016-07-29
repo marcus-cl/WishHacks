@@ -110,9 +110,9 @@ function makeWishRequest(sender, search_query) {
                     let data = body_json['data']['results']
                     let products = []
                     for (i=0; i < data.length; i++) {
-                        let product = products[i]{};
-                        product['img_url'] = data['img_url']
-                        product['id'] = data['id']
+                        products[i] = {};
+                        products[i]['img_url'] = data['img_url']
+                        products[i]['id'] = data['id']
                     }
                     console.log(data.length + " items to be shown");
                     console.log("sending_message");
