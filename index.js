@@ -5,17 +5,20 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 
+console.log("Starting!!!")
+
 
 let Wit = null;
+let log = null;
 try {
   // if running from repo
   Wit = require('../').Wit;
+  log = require('../').log;
 } catch (e) {
   Wit = require('node-wit').Wit;
+  log = require('node-wit').log;
 }
 
-
-const WIT_TOKEN = "AQ6ICT7N5ERNKVZEUAHD6VUKNTKUBG6N"
 
 const actions = {
   send(request, response) {
@@ -40,7 +43,17 @@ const actions = {
   },
 };
 
-const client = new Wit({WIT_TOKEN, actions});
+console.log("Creating WITAI client");
+
+
+const WIT_TOKEN = "P5B6S3XZFVR2ZTY4S3HP5LEUFMMNAMXL"
+
+const client = new Wit({
+  accessToken: WIT_TOKEN,
+  actions,
+  logger: new log.Logger(log.INFO)
+});
+console.log("Created WITAI client successfully");
 
 app.set('port', (process.env.PORT || 5000))
 
