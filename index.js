@@ -84,31 +84,8 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
 
-
-app.post('/webhook/', function (req, res) {
-    let messaging_events = req.body.entry[0].messaging
-    for (let i = 0; i < messaging_events.length; i++) {
-      let event = req.body.entry[0].messaging[i]
-      let sender = event.sender.id
-      if (event.message && event.message.text) {
-        let text = event.message.text
-        if (text === 'Generic') {
-            sendGenericMessage(sender)
-            continue
-        }
-        // WIT AI TESTING ZONE
-
-
-        client.message(text, {})
-        .then((data) => {
-          console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
-          var search_query = text;
-          console.log("query: " + search_query);
-          // openWishCards(search_query);
-        })
-        .catch(console.error);
-
-        let url = 'https://wish.com/api/search?query=' + search_query
+function makeWishRequest(sender, search_query) {
+    let url = 'https://wish.com/api/search?query=' + search_query
 
         try{
             request(url, function (error, response, body) {
@@ -136,6 +113,60 @@ app.post('/webhook/', function (req, res) {
             console.log('Errored out ' + e)
             sendTextMessage(sender, "Sorry, WishBot didn't understand...", token)
         }
+}
+
+app.post('/webhook/', function (req, res) {
+    let messaging_events = req.body.entry[0].messaging
+    for (let i = 0; i < messaging_events.length; i++) {
+      let event = req.body.entry[0].messaging[i]
+      let sender = event.sender.id
+      if (event.message && event.message.text) {
+        let text = event.message.text
+        if (text === 'Generic') {
+            sendGenericMessage(sender)
+            continue
+        }
+        // WIT AI TESTING ZONE
+
+
+        client.message(text, {})
+        .then((data) => {
+          console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
+          var search_query = text;
+          console.log("query: " + search_query);
+          makeWishRequest(sender, search_query)
+          // openWishCards(search_query);
+        })
+        .catch(console.error);
+
+        // let url = 'https://wish.com/api/search?query=' + search_query
+
+        // try{
+        //     request(url, function (error, response, body) {
+        //     console.log('In request function')
+        //     console.log(error);
+        //     console.log(response.statusCode);
+        //     console.log(url);
+        //     if (!error && response.statusCode == 200) {
+        //         console.log(body);
+        //         let body_json = JSON.parse(body)
+        //         console.log("Parsed Json");
+        //         var pretty_json = JSON.stringify(body_json, null, 2);
+        //         console.log(pretty_json)
+
+        //         let data = body_json['data']['results'][0]
+        //         let product = {}
+        //         product['img_url'] = data['img_url']
+        //         product['id'] = data['id']
+        //         console.log(sending_message);
+        //         sendTextMessage(sender, "Here, try a look at " + search_query, token)
+        //         sendProductCards(sender, product)
+        //         }
+        //     })
+        // } catch(e) {
+        //     console.log('Errored out ' + e)
+        //     sendTextMessage(sender, "Sorry, WishBot didn't understand...", token)
+        // }
         
 
       }
