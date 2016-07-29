@@ -30,6 +30,7 @@ const actions = {
     //   console.log('sending...', JSON.stringify(response));
     //   return resolve();
     // });
+    
     return Promise.resolve();
   },
   search(context, entities) {
