@@ -42,7 +42,10 @@ app.post('/webhook/', function (req, res) {
             sendGenericMessage(sender)
             continue
         }
-        sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+        let url = "https://marcus.corp.contextlogic.com/api/contest/search?query=" + text
+        wishSearch(url, function(response) {
+            sendTextMessage(sender, "Text received, echo: " + response)
+        })
       }
       if (event.postback) {
         let text = JSON.stringify(event.postback)
@@ -54,6 +57,16 @@ app.post('/webhook/', function (req, res) {
 })
 
 const token = "EAAEVbUy97soBAKZAzNylDk2oMymBZBVbxcf1IF9ZBNFZAZBvMOleC7w0kx3StHCZAZBYxWNpgugnuVdEqIiNVG65HZCIK41PutZBjirvjWj4WYALZAxBAZC1eXO6Fd9GsiMse3RRZAToY7SO3LxMfnYGZCyNhGCg6cZB1eOScEXs5KWRiVBAZDZD"
+
+function wishSearch(url, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", url, true); // true for asynchronous
+    xmlHttp.send(null);
+}
 
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
