@@ -92,7 +92,7 @@ function makeWishRequest(sender, search_query) {
     // is called inside wit.ai callback?
     console.log("makeWishRequest")
     let url = 'https://wish.com/api/search?query=' + search_query
-    url += "&count=" + MAX_PRODUCTS.to_string()
+    url += "&count=" + MAX_PRODUCTS.toString()
     url += "&picture_size=original"
 
         try{
