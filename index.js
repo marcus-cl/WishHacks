@@ -87,6 +87,7 @@ app.listen(app.get('port'), function() {
 })
 
 function makeWishRequest(sender, search_query) {
+    // is called inside wit.ai callback?
     console.log("makeWishRequest")
     let url = 'https://wish.com/api/search?query=' + search_query
 
@@ -108,7 +109,7 @@ function makeWishRequest(sender, search_query) {
                 product['img_url'] = data['img_url']
                 product['id'] = data['id']
                 console.log("sending_message");
-                sendTextMessage(sender, "Here, try a look at " + search_query, token)
+                sendTextMessage(sender, "Here, take a look at our " + search_query, token)
                 sendProductCards(sender, product)
                 }
             })
@@ -131,7 +132,6 @@ app.post('/webhook/', function (req, res) {
         }
         // WIT AI TESTING ZONE
 
-
         client.message(text, {})
         .then((data) => {
           console.log('Yay, got Wit.ai response: \n' + JSON.stringify(data['entities']['search_query'], null, 2) + " from originally " + text);
@@ -140,36 +140,6 @@ app.post('/webhook/', function (req, res) {
           makeWishRequest(sender, search_query)
         })
         .catch(console.error);
-
-        // let url = 'https://wish.com/api/search?query=' + search_query
-
-        // try{
-        //     request(url, function (error, response, body) {
-        //     console.log('In request function')
-        //     console.log(error);
-        //     console.log(response.statusCode);
-        //     console.log(url);
-        //     if (!error && response.statusCode == 200) {
-        //         console.log(body);
-        //         let body_json = JSON.parse(body)
-        //         console.log("Parsed Json");
-        //         var pretty_json = JSON.stringify(body_json, null, 2);
-        //         console.log(pretty_json)
-
-        //         let data = body_json['data']['results'][0]
-        //         let product = {}
-        //         product['img_url'] = data['img_url']
-        //         product['id'] = data['id']
-        //         console.log(sending_message);
-        //         sendTextMessage(sender, "Here, try a look at " + search_query, token)
-        //         sendProductCards(sender, product)
-        //         }
-        //     })
-        // } catch(e) {
-        //     console.log('Errored out ' + e)
-        //     sendTextMessage(sender, "Sorry, WishBot didn't understand...", token)
-        // }
-        
 
       }
       if (event.postback) {
@@ -205,6 +175,7 @@ function sendTextMessage(sender, text) {
 }
 
 function sendProductCards(sender, product) {
+    console.log(JSON.stringify(product, null, 2));
     let messageData = {
         "attachment": {
             "type": "template",
@@ -216,8 +187,8 @@ function sendProductCards(sender, product) {
                     "image_url": product['img_url'],
                     "buttons": [{
                         "type": "web_url",
-                        "url": "https://www.messenger.com",
-                        "title": "web url"
+                        "url": "https://www.wish.com/c/" + product['id'],
+                        "title": "Product Link"
                     }, {
                         "type": "postback",
                         "title": "Postback",
