@@ -106,7 +106,7 @@ function makeWishRequest(sender, search_query) {
                 product['img_url'] = data['img_url']
                 product['id'] = data['id']
                 console.log("sending_message");
-                // sendTextMessage(sender, "Here, try a look at " + search_query, token)
+                sendTextMessage(sender, "Here, try a look at " + search_query, token)
                 sendProductCards(sender, product)
                 }
             })
@@ -136,7 +136,6 @@ app.post('/webhook/', function (req, res) {
           var search_query = data['entities'][0]['value'];
           console.log("query: " + search_query);
           makeWishRequest(sender, search_query)
-          // openWishCards(search_query);
         })
         .catch(console.error);
 
