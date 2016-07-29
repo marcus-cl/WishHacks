@@ -87,7 +87,7 @@ app.listen(app.get('port'), function() {
 
 function openWishCards(search_query) {
             console.log("Search Query " + search_query);
-        let url = 'https://wish.com/api/search?query=' + text
+        let url = 'https://wish.com/api/search?query=' + search_query
         request(url, function (error, response, body) {
             console.log('In request function')
             if (!error && response.statusCode == 200) {
@@ -117,7 +117,7 @@ app.post('/webhook/', function (req, res) {
         client.message(text, {})
         .then((data) => {
           console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
-          search_query = text;
+          var search_query = text;
           console.log("query: " + search_query);
           openWishCards(search_query);
         })
