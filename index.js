@@ -37,7 +37,7 @@ const actions = {
     // console.log(entities);
     return new Promise(function(resolve, reject) {
       console.log('entities');
-      // console.log(JSON.stringify(entities, null, 2));
+      console.log(JSON.stringify(entities, null, 2));
       console.log(entities['search_query'])
 
       var query = entities['search_query'][0]['value'];  // firstEntityValue(entities, 'search_query');
@@ -187,7 +187,7 @@ function sendTextMessage(sender, text) {
 }
 
 function sendProductCards(sender, products) {
-    // console.log(JSON.stringify(product, null, 2));
+    console.log(JSON.stringify(products, null, 2));
     let elements = []
     for (var i=0; i<products.length; i++) {
         var product = products[i];
