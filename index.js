@@ -46,8 +46,12 @@ app.post('/webhook/', function (req, res) {
         request(url, function (error, response, body) {
             console.log('In request function')
             if (!error && response.statusCode == 200) {
-                console.log('BODY: ' + body) // Show the HTML for the Google homepage.
                 sendTextMessage(sender, "Text received, echo: Status Code = " + response.statusCode)
+                data = body['data']['results'][0]
+                product = {}
+                product['img_url'] = data['img_url']
+                product['id'] = data['id']
+                sendProductCards(sender, product)
             }
         })
       }
@@ -64,6 +68,46 @@ const token = "EAAEVbUy97soBAKZAzNylDk2oMymBZBVbxcf1IF9ZBNFZAZBvMOleC7w0kx3StHCZ
 
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
+function sendProductCards(sender, product) {
+    let messageData = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "First Product",
+                    "subtitle": "ID: " + product['id'],
+                    "image_url": product['img_url'],
+                    "buttons": [{
+                        "type": "web_url",
+                        "url": "https://www.messenger.com",
+                        "title": "web url"
+                    }, {
+                        "type": "postback",
+                        "title": "Postback",
+                        "payload": "Payload for first element in a generic bubble",
+                    }],
+                }]
+            }
+        }
+    }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:token},
