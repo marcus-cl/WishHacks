@@ -190,7 +190,7 @@ function sendProductCards(sender, products) {
     // console.log(JSON.stringify(product, null, 2));
     let elements = []
     for (var i=0; i<products.length; i++) {
-        product = products[i];
+        var product = products[i];
         elements[i] = {
             "title": "First Product",
             "subtitle": "ID: " + product['id'],
