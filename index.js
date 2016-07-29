@@ -8,7 +8,6 @@ const app = express()
 console.log("Starting!!!")
 
 
-var MAX_PRODUCTS = 5;
 let Wit = null;
 let log = null;
 try {
@@ -92,7 +91,7 @@ function makeWishRequest(sender, search_query) {
     // is called inside wit.ai callback?
     console.log("makeWishRequest")
     let url = 'https://wish.com/api/search?query=' + search_query
-    url += "&count=" + MAX_PRODUCTS
+    url += "&count=3"
     url += "&picture_size=original"
 
         try{
@@ -199,7 +198,7 @@ function sendProductCards(sender, products) {
     for (var i=0; i<products.length; i++) {
         var product = products[i];
         elements[i] = {
-            // "title": "First Product",
+            "title": "First Product",
             "subtitle": "ID: " + product['id'],
             "image_url": product['img_url'],
             "buttons": [{
