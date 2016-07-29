@@ -134,7 +134,7 @@ app.post('/webhook/', function (req, res) {
 
         client.message(text, {})
         .then((data) => {
-          console.log('Yay, got Wit.ai response: \n' + JSON.stringify(data[entities], null, 2) + " from originally " + text);
+          console.log('Yay, got Wit.ai response: \n' + JSON.stringify(data['entities'], null, 2) + " from originally " + text);
           var search_query = data['entities'][0].value;
           console.log("query: " + search_query);
           makeWishRequest(sender, search_query)
