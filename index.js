@@ -116,13 +116,15 @@ app.post('/webhook/', function (req, res) {
             console.log('In request function')
             if (!error && response.statusCode == 200) {
                 let body_json = JSON.parse(body)
-                var str = JSON.stringify(body_json, null, 2);
-                console.log(str)
+                console.log("Parsed Json");
+                var pretty_json = JSON.stringify(body_json, null, 2);
+                console.log(pretty_json)
 
                 let data = body_json['data']['results'][0]
                 let product = {}
                 product['img_url'] = data['img_url']
                 product['id'] = data['id']
+                console.log(sending_message);
                 sendTextMessage(sender, "Here, try a look at " + search_query, token)
                 sendProductCards(sender, product)
                 }
