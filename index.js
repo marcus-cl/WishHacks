@@ -42,7 +42,7 @@ app.post('/webhook/', function (req, res) {
             sendGenericMessage(sender)
             continue
         }
-        let url = 'https://marcus.corp.contextlogic.com/api/contest/search?query=' + text
+        let url = 'https://wish.com/api/contest/search?query=' + text
         request(url, function (error, response, body) {
             console.log('Response: ' + response)
             console.log('Error: ' + error)
