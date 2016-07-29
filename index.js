@@ -84,31 +84,9 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
 
-app.post('/webhook/', function (req, res) {
-    let messaging_events = req.body.entry[0].messaging
-    for (let i = 0; i < messaging_events.length; i++) {
-      let event = req.body.entry[0].messaging[i]
-      let sender = event.sender.id
-      if (event.message && event.message.text) {
-        let text = event.message.text
-        if (text === 'Generic') {
-            sendGenericMessage(sender)
-            continue
-        }
-        // WIT AI TESTING ZONE
-        b = client.message(text, {})
-        .then((data) => {
-          console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
-          search_query = text;
-        })
-        .catch(console.error);
 
-
-        console.log(b);
-
-
-        // search_query = client.message(text, {});
-        console.log("Search Query " + search_query);
+function openWishCards(search_query) {
+            console.log("Search Query " + search_query);
         let url = 'https://wish.com/api/search?query=' + text
         request(url, function (error, response, body) {
             console.log('In request function')
@@ -121,6 +99,48 @@ app.post('/webhook/', function (req, res) {
                 sendProductCards(sender, product)
             }
         })
+}
+
+
+app.post('/webhook/', function (req, res) {
+    let messaging_events = req.body.entry[0].messaging
+    for (let i = 0; i < messaging_events.length; i++) {
+      let event = req.body.entry[0].messaging[i]
+      let sender = event.sender.id
+      if (event.message && event.message.text) {
+        let text = event.message.text
+        if (text === 'Generic') {
+            sendGenericMessage(sender)
+            continue
+        }
+        // WIT AI TESTING ZONE
+        client.message(text, {})
+        .then((data) => {
+          console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
+          search_query = text;
+          console.log("query: " + search_query);
+          openWishCards(search_query);
+        })
+        .catch(console.error);
+
+
+        console.log(b);
+
+
+        // search_query = client.message(text, {});
+        console.log("Search Query " + search_query);
+        // let url = 'https://wish.com/api/search?query=' + text
+        // request(url, function (error, response, body) {
+        //     console.log('In request function')
+        //     if (!error && response.statusCode == 200) {
+        //         let body_json = JSON.parse(body)
+        //         let data = body_json['data']['results'][0]
+        //         let product = {}
+        //         product['img_url'] = data['img_url']
+        //         product['id'] = data['id']
+        //         sendProductCards(sender, product)
+        //     }
+        // })
 
       }
       if (event.postback) {
@@ -131,6 +151,8 @@ app.post('/webhook/', function (req, res) {
     }
     res.sendStatus(200)
 })
+
+
 
 const token = "EAAEVbUy97soBAKZAzNylDk2oMymBZBVbxcf1IF9ZBNFZAZBvMOleC7w0kx3StHCZAZBYxWNpgugnuVdEqIiNVG65HZCIK41PutZBjirvjWj4WYALZAxBAZC1eXO6Fd9GsiMse3RRZAToY7SO3LxMfnYGZCyNhGCg6cZB1eOScEXs5KWRiVBAZDZD"
 
