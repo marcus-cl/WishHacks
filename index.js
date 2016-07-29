@@ -5,7 +5,8 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
+var request = require('request');
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -45,8 +46,11 @@ app.post('/webhook/', function (req, res) {
             continue
         }
         let url = "https://marcus.corp.contextlogic.com/api/contest/search?query=" + text
-        wishSearch(url, function(response) {
-            sendTextMessage(sender, "Text received, echo: " + response)
+        request(url, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log(body) // Show the HTML for the Google homepage.
+                sendTextMessage(sender, "Text received, echo: " + body)
+            }
         })
       }
       if (event.postback) {
@@ -59,16 +63,6 @@ app.post('/webhook/', function (req, res) {
 })
 
 const token = "EAAEVbUy97soBAKZAzNylDk2oMymBZBVbxcf1IF9ZBNFZAZBvMOleC7w0kx3StHCZAZBYxWNpgugnuVdEqIiNVG65HZCIK41PutZBjirvjWj4WYALZAxBAZC1eXO6Fd9GsiMse3RRZAToY7SO3LxMfnYGZCyNhGCg6cZB1eOScEXs5KWRiVBAZDZD"
-
-function wishSearch(url, callback) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", url, true); // true for asynchronous
-    xmlHttp.send(null);
-}
 
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
