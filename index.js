@@ -52,6 +52,7 @@ console.log("Creating WITAI client");
 
 
 var WIT_TOKEN = "LXMANMMFUEL5PH3S4YTZ2RVFZX3S6B5P"
+var MAX_PRODUCTS = 5;
 WIT_TOKEN = WIT_TOKEN.split('').reverse().join('');
 
 const client = new Wit({
@@ -91,7 +92,7 @@ function makeWishRequest(sender, search_query) {
     // is called inside wit.ai callback?
     console.log("makeWishRequest")
     let url = 'https://wish.com/api/search?query=' + search_query
-    url += "&count=3"
+    url += "&count=" + MAX_PRODUCTS.to_string()
     url += "&picture_size=original"
 
         try{
