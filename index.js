@@ -124,11 +124,7 @@ app.post('/webhook/', function (req, res) {
         .catch(console.error);
 
 
-        console.log(b);
-
-
         // search_query = client.message(text, {});
-        console.log("Search Query " + search_query);
         // let url = 'https://wish.com/api/search?query=' + text
         // request(url, function (error, response, body) {
         //     console.log('In request function')
