@@ -114,29 +114,31 @@ app.post('/webhook/', function (req, res) {
             continue
         }
         // WIT AI TESTING ZONE
+
+        var search_query = ""
         client.message(text, {})
         .then((data) => {
           console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
           var search_query = text;
           console.log("query: " + search_query);
-          openWishCards(search_query);
+          // openWishCards(search_query);
         })
         .catch(console.error);
 
 
-        // search_query = client.message(text, {});
-        // let url = 'https://wish.com/api/search?query=' + text
-        // request(url, function (error, response, body) {
-        //     console.log('In request function')
-        //     if (!error && response.statusCode == 200) {
-        //         let body_json = JSON.parse(body)
-        //         let data = body_json['data']['results'][0]
-        //         let product = {}
-        //         product['img_url'] = data['img_url']
-        //         product['id'] = data['id']
-        //         sendProductCards(sender, product)
-        //     }
-        // })
+        search_query = client.message(text, {});
+        let url = 'https://wish.com/api/search?query=' + text
+        request(url, function (error, response, body) {
+            console.log('In request function')
+            if (!error && response.statusCode == 200) {
+                let body_json = JSON.parse(body)
+                let data = body_json['data']['results'][0]
+                let product = {}
+                product['img_url'] = data['img_url']
+                product['id'] = data['id']
+                sendProductCards(sender, product)
+            }
+        })
 
       }
       if (event.postback) {
