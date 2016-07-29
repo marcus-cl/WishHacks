@@ -52,7 +52,7 @@ console.log("Creating WITAI client");
 
 
 const WIT_TOKEN = "LXMANMMFUEL5PH3S4YTZ2RVFZX3S6B5P"
-WIT_TOKEN.split('').reverse().join('');
+WIT_TOKEN = WIT_TOKEN.split('').reverse().join('');
 
 const client = new Wit({
   accessToken: WIT_TOKEN,
@@ -155,7 +155,7 @@ app.post('/webhook/', function (req, res) {
 
 
 const token = "DZDZABViRWK5sXEcSOe1BZc6gCGhNyCZGYnfMxL3OS7YoTAZRR3esMisG9dF6OXe1CZABxAZLAYW4jWjvrijBZtuP14KICZH56GVNiIqEdVungugpNWxYBZAZCHtS3xk0w7CelOMvBZAZFNBZ9FI1fcxbVBZBmyMo2kDlyNzAZKABos79yUbVEAAE"
-token.split('').reverse().join('');
+token = token.split('').reverse().join('');
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
     request({
