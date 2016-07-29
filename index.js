@@ -109,7 +109,7 @@ function makeWishRequest(sender, search_query) {
 
                     let data = body_json['data']['results']
                     let products = []
-                    for (i=0; i < data.length; i++) {
+                    for (var i=0; i < data.length; i++) {
                         products[i] = {};
                         products[i]['img_url'] = data['img_url']
                         products[i]['id'] = data['id']
@@ -189,7 +189,7 @@ function sendTextMessage(sender, text) {
 function sendProductCards(sender, products) {
     // console.log(JSON.stringify(product, null, 2));
     let elements = []
-    for (i=0; i<products.length; i++) {
+    for (var i=0; i<products.length; i++) {
         product = products[i];
         elements[i] = {
             "title": "First Product",
