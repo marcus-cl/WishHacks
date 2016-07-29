@@ -204,16 +204,15 @@ function sendProductCards(sender, products) {
                 "title": "Postback",
                 "payload": "Payload for first element in a generic bubble",
             }
-        }   
+        }
     }
     let messageData = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": [{
-                    elements,
-                }]
+                "elements": elements,
+                
             }
         }
     }
