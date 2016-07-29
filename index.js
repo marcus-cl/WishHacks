@@ -108,11 +108,11 @@ function makeWishRequest(sender, search_query) {
                     // console.log(pretty_json)
 
                     let data = body_json['data']['results']
-                    let products = []
+                    var products = []
                     for (var i=0; i < data.length; i++) {
                     	products.push({
 							img_url: data['img_url'],
-							id:	data['id'],
+							id:	data['id']
 						});
                         // products[i]['img_url'] = data['img_url']
                         // products[i]['id'] = data['id']
