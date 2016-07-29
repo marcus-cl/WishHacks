@@ -14,6 +14,7 @@ try {
   Wit = require('node-wit').Wit;
 }
 
+
 const WIT_TOKEN = "AQ6ICT7N5ERNKVZEUAHD6VUKNTKUBG6N"
 
 const actions = {
@@ -26,7 +27,7 @@ const actions = {
     // });
     return Promise.resolve();
   },
-  search({context, entities}) {
+  search(context, entities) {
     // console.log(entities);
     return new Promise(function(resolve, reject) {
       console.log('entities');
@@ -39,7 +40,7 @@ const actions = {
   },
 };
 
-const client = new Wit({WIT_TOKEN, actions});
+// const client = new Wit({WIT_TOKEN, actions});
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -80,19 +81,19 @@ app.post('/webhook/', function (req, res) {
         }
         // WIT AI TESTING ZONE
 
-        // client.message(text, {})
-        // .then((data) => {
-        //   console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
-        //   search_query = text;
-        // })
-        // .catch(console.error);
+        client.message(text, {})
+        .then((data) => {
+          console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
+          search_query = text;
+        })
+        .catch(console.error);
 
 
 
 
 
         // search_query = client.message(text, {});
-        // console.log("Search Query " + search_query);
+        console.log("Search Query " + search_query);
         let url = 'https://wish.com/api/search?query=' + text
         request(url, function (error, response, body) {
             console.log('In request function')
