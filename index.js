@@ -118,6 +118,9 @@ app.post('/webhook/', function (req, res) {
             console.log('In request function')
             if (!error && response.statusCode == 200) {
                 let body_json = JSON.parse(body)
+                var str = JSON.stringify(body_json, null, 2);
+                console.log(str)
+                
                 let data = body_json['data']['results'][0]
                 let product = {}
                 product['img_url'] = data['img_url']
