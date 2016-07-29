@@ -203,7 +203,7 @@ function sendProductCards(sender, products) {
                 "type": "postback",
                 "title": "Postback",
                 "payload": "Payload for first element in a generic bubble",
-            }
+            }]
         }
     }
     let messageData = {
