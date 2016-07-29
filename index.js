@@ -40,7 +40,7 @@ const actions = {
   },
 };
 
-// const client = new Wit({WIT_TOKEN, actions});
+const client = new Wit({WIT_TOKEN, actions});
 
 app.set('port', (process.env.PORT || 5000))
 
