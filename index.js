@@ -48,7 +48,7 @@ app.post('/webhook/', function (req, res) {
             if (!error && response.statusCode == 200) {
 //                sendTextMessage(sender, "Text received, echo: Status Code = " + response.statusCode)
                 console.log('DATA: ' + body)
-                data = body['data']['results'][0]
+                data = body.data.results[0]
                 product = {}
                 product['img_url'] = data['img_url']
                 product['id'] = data['id']
