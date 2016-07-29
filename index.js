@@ -96,29 +96,37 @@ function makeWishRequest(sender, search_query) {
 
         try{
             request(url, function (error, response, body) {
-            console.log('In request function')
-            console.log(error);
-            console.log(response.statusCode);
-            console.log(url);
-            if (!error && response.statusCode == 200) {
-                console.log(body);
-                let body_json = JSON.parse(body)
-                console.log("Parsed Json");
-                var pretty_json = JSON.stringify(body_json, null, 2);
-                console.log(pretty_json)
+                console.log('In request function')
+                console.log(error);
+                console.log(response.statusCode);
+                console.log(url);
+                if (!error && response.statusCode == 200) {
+                    // console.log(body);
+                    let body_json = JSON.parse(body)
+                    console.log("Parsed Json");
+                    var pretty_json = JSON.stringify(body_json, null, 2);
+                    // console.log(pretty_json)
 
-                let data = body_json['data']['results'][0]
-                let product = {}
-                product['img_url'] = data['img_url']
-                product['id'] = data['id']
-                console.log("sending_message");
-                sendTextMessage(sender, "Here, take a look at our " + search_query, token)
-                sendProductCards(sender, product)
+                    let data = body_json['data']['results']
+                    let products = []
+                    for (i=0; i < data.length; i++) {
+                        let product = products[i]{};
+                        product['img_url'] = data['img_url']
+                        product['id'] = data['id']
+                    }
+                    console.log(data.length + " items to be shown");
+                    console.log("sending_message");
+                    if (data.length  > 0) {
+                        sendTextMessage(sender, "Here, take a look at our " + search_query, token);
+                        sendProductCards(sender, products);
+                    } else {
+                        sendTextMessage(sender, "I'm afraid we don't have any " + search_query, token);
+                    }
                 }
             })
         } catch(e) {
             console.log('Errored out ' + e)
-            sendTextMessage(sender, "Sorry, WishBot didn't understand...", token)
+            sendTextMessage(sender, "Sorry, I didn't understand your request", token)
         }
 }
 
@@ -178,26 +186,32 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function sendProductCards(sender, product) {
-    console.log(JSON.stringify(product, null, 2));
+function sendProductCards(sender, products) {
+    // console.log(JSON.stringify(product, null, 2));
+    let elements = []
+    for (i=0; i<products.length; i++) {
+        product = products[i];
+        elements[i] = {
+            "title": "First Product",
+            "subtitle": "ID: " + product['id'],
+            "image_url": product['img_url'],
+            "buttons": [{
+                "type": "web_url",
+                "url": "https://www.wish.com/c/" + product['id'],
+                "title": "Product Link"
+            }, {
+                "type": "postback",
+                "title": "Postback",
+                "payload": "Payload for first element in a generic bubble",
+        }   
+    }
     let messageData = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
                 "elements": [{
-                    "title": "First Product",
-                    "subtitle": "ID: " + product['id'],
-                    "image_url": product['img_url'],
-                    "buttons": [{
-                        "type": "web_url",
-                        "url": "https://www.wish.com/c/" + product['id'],
-                        "title": "Product Link"
-                    }, {
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for first element in a generic bubble",
-                    }],
+                    elements,
                 }]
             }
         }
