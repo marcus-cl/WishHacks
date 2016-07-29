@@ -64,7 +64,7 @@ app.post('/webhook/', function (req, res) {
             sendGenericMessage(sender)
             continue
         }
-<<<<<<< be63c694655b67f32866cff8014d6359747388a3
+        text = client.message(text, {});
         let url = 'https://wish.com/api/search?query=' + text
         request(url, function (error, response, body) {
             console.log('In request function')
@@ -77,11 +77,7 @@ app.post('/webhook/', function (req, res) {
                 sendProductCards(sender, product)
             }
         })
-=======
-        text = client.message(text, {});
-        console.lo
-        sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
->>>>>>> Added WitAI
+
       }
       if (event.postback) {
         let text = JSON.stringify(event.postback)
@@ -113,7 +109,6 @@ function sendTextMessage(sender, text) {
     })
 }
 
-<<<<<<< be63c694655b67f32866cff8014d6359747388a3
 function sendProductCards(sender, product) {
     let messageData = {
         "attachment": {
@@ -153,10 +148,7 @@ function sendProductCards(sender, product) {
         }
     })
 }
-=======
 
-
->>>>>>> Added WitAI
 
 function sendGenericMessage(sender) {
     let messageData = {
