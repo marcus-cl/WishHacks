@@ -112,7 +112,9 @@ app.post('/webhook/', function (req, res) {
 
         search_query = client.message(text, {});
         let url = 'https://wish.com/api/search?query=' + search_query
-        request(url, function (error, response, body) {
+
+        try{
+            request(url, function (error, response, body) {
             console.log('In request function')
             if (!error && response.statusCode == 200) {
                 let body_json = JSON.parse(body)
@@ -120,9 +122,14 @@ app.post('/webhook/', function (req, res) {
                 let product = {}
                 product['img_url'] = data['img_url']
                 product['id'] = data['id']
+                sendTextMessage(sender, "Here, try a look at " + search_query, token)
                 sendProductCards(sender, product)
-            }
-        })
+                }
+            })
+        } catch(err) {
+            sendTextMessage(sender, "Sorry, WishBot didn't understand...", token)
+        }
+        
 
       }
       if (event.postback) {
