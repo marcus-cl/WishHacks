@@ -18,10 +18,22 @@ const WIT_TOKEN = "AQ6ICT7N5ERNKVZEUAHD6VUKNTKUBG6N"
 
 const actions = {
   send(request, response) {
-    return 'should not show up'
+    const {sessionId, context, entities} = request;
+    const {text, quickreplies} = response;
+    return new Promise(function(resolve, reject) {
+      console.log('sending...', JSON.stringify(response));
+      return resolve();
+    });
   },
   search({context, entities}) {
-      return entities['search_query'][0]['value']
+    return new Promise(function(resolve, reject) {
+      console.log('entities');
+      console.log(entities);
+      var query = entities['search_query'][0]['value'];  // firstEntityValue(entities, 'search_query');
+      context.products = query;
+      console.log(context);
+      return resolve(context);
+    });
   },
 };
 
@@ -64,6 +76,19 @@ app.post('/webhook/', function (req, res) {
             sendGenericMessage(sender)
             continue
         }
+        // WIT AI TESTING ZONE
+
+        client.message(text, {})
+        .then((data) => {
+          console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
+          search_query = text;
+        })
+        .catch(console.error);
+
+
+
+
+
         // search_query = client.message(text, {});
         // console.log("Search Query " + search_query);
         let url = 'https://wish.com/api/search?query=' + text
