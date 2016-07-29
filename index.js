@@ -85,6 +85,7 @@ app.listen(app.get('port'), function() {
 })
 
 function makeWishRequest(sender, search_query) {
+    console.log("makeWishRequest")
     let url = 'https://wish.com/api/search?query=' + search_query
 
         try{
