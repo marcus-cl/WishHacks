@@ -15,7 +15,6 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-    console.log("WISHHACKS: " + JSON.stringify(req))
     res.send('933580406')
 })
 
