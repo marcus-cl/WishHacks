@@ -96,8 +96,7 @@ app.post('/webhook/', function (req, res) {
             continue
         }
         // WIT AI TESTING ZONE
-        local search_query = "";
-        client.message(text, {})
+        b = client.message(text, {})
         .then((data) => {
           console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
           search_query = text;
@@ -105,7 +104,7 @@ app.post('/webhook/', function (req, res) {
         .catch(console.error);
 
 
-
+        console.log(b);
 
 
         // search_query = client.message(text, {});
