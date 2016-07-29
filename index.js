@@ -8,6 +8,7 @@ const app = express()
 console.log("Starting!!!")
 
 
+var MAX_PRODUCTS = 5;
 let Wit = null;
 let log = null;
 try {
