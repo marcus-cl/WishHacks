@@ -44,8 +44,9 @@ app.post('/webhook/', function (req, res) {
         }
         let url = 'https://wish.com/api/contest/search?query=' + text
         request(url, function (error, response, body) {
+            console.
             if (!error && response.statusCode == 200) {
-                console.log(body) // Show the HTML for the Google homepage.
+                console.log('BODY: ' + body) // Show the HTML for the Google homepage.
                 sendTextMessage(sender, "Text received, echo: " + body)
             }
         })
