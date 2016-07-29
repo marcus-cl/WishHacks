@@ -30,7 +30,7 @@ const actions = {
     //   console.log('sending...', JSON.stringify(response));
     //   return resolve();
     // });
-    
+
     return Promise.resolve();
   },
   search(context, entities) {
@@ -96,7 +96,7 @@ app.post('/webhook/', function (req, res) {
             continue
         }
         // WIT AI TESTING ZONE
-
+        local search_query = "";
         client.message(text, {})
         .then((data) => {
           console.log('Yay, got Wit.ai response: ' + JSON.stringify(data) + " from originally " + text);
