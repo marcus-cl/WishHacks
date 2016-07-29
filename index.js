@@ -106,7 +106,7 @@ function makeWishRequest(sender, search_query) {
                 product['img_url'] = data['img_url']
                 product['id'] = data['id']
                 console.log("sending_message");
-                sendTextMessage(sender, "Here, try a look at " + search_query, token)
+                // sendTextMessage(sender, "Here, try a look at " + search_query, token)
                 sendProductCards(sender, product)
                 }
             })
