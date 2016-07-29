@@ -91,6 +91,8 @@ function makeWishRequest(sender, search_query) {
     // is called inside wit.ai callback?
     console.log("makeWishRequest")
     let url = 'https://wish.com/api/search?query=' + search_query
+    url += "&count=3"
+    url += "&size=original"
 
         try{
             request(url, function (error, response, body) {
