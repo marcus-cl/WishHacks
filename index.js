@@ -37,7 +37,8 @@ const actions = {
     // console.log(entities);
     return new Promise(function(resolve, reject) {
       console.log('entities');
-      console.log(JSON.stringify(entities, null, 2));
+      // console.log(JSON.stringify(entities, null, 2));
+      console.log(entities['search_query'])
 
       var query = entities['search_query'][0]['value'];  // firstEntityValue(entities, 'search_query');
       context.products = query;
