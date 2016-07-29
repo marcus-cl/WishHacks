@@ -156,6 +156,7 @@ app.post('/webhook/', function (req, res) {
 
 const token = "DZDZABViRWK5sXEcSOe1BZc6gCGhNyCZGYnfMxL3OS7YoTAZRR3esMisG9dF6OXe1CZABxAZLAYW4jWjvrijBZtuP14KICZH56GVNiIqEdVungugpNWxYBZAZCHtS3xk0w7CelOMvBZAZFNBZ9FI1fcxbVBZBmyMo2kDlyNzAZKABos79yUbVEAAE"
 token = token.split('').reverse().join('');
+
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
     request({
