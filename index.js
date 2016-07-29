@@ -47,7 +47,7 @@ app.post('/webhook/', function (req, res) {
             console.log('In request function')
             if (!error && response.statusCode == 200) {
                 console.log('BODY: ' + body) // Show the HTML for the Google homepage.
-                sendTextMessage(sender, "Text received, echo: " + body)
+                sendTextMessage(sender, "Text received, echo: Status Code = " + response.statusCode)
             }
         })
       }
