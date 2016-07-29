@@ -46,8 +46,6 @@ app.post('/webhook/', function (req, res) {
         request(url, function (error, response, body) {
             console.log('In request function')
             if (!error && response.statusCode == 200) {
-//                sendTextMessage(sender, "Text received, echo: Status Code = " + response.statusCode)
-                console.log('DATA: ' + body)
                 let body_json = JSON.parse(body)
                 let data = body_json['data']['results'][0]
                 let product = {}
