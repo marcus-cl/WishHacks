@@ -199,7 +199,7 @@ function sendProductCards(sender, products) {
     for (var i=0; i<products.length; i++) {
         var product = products[i];
         elements[i] = {
-            "title": "First Product",
+            "title": "Wish, Shopping Made Fun!",
             "subtitle": "ID: " + product['id'],
             "image_url": product['img_url'],
             "buttons": [{
