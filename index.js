@@ -42,11 +42,12 @@ app.post('/webhook/', function (req, res) {
             sendGenericMessage(sender)
             continue
         }
-        let url = "https://marcus.corp.contextlogic.com/api/contest/search?query=" + text
+        let url = 'https://marcus.corp.contextlogic.com/api/contest/search?query=' + text
         request(url, function (error, response, body) {
+            console.log('Status Code: ' + response.statusCode)
             if (!error && response.statusCode == 200) {
                 console.log(body) // Show the HTML for the Google homepage.
-                sendTextMessage(sender, "Text received, echo: " + body)
+                //sendTextMessage(sender, "Text received, echo: " + body)
             }
         })
       }
