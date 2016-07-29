@@ -111,10 +111,10 @@ function makeWishRequest(sender, search_query) {
                     var products = []
                     for (var i=0; i < data.length; i++) {
                     	var item = {
-							img_url: data['img_url'],
-							id:	data['id']
+							img_url: data[i]['img_url'],
+							id:	data[i]['id']
 						};
-						products.push(var);
+						products.push(item);
                         // products[i]['img_url'] = data['img_url']
                         // products[i]['id'] = data['id']
                         console.log("products that are blank")
